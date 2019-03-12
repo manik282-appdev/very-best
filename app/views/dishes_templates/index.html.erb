@@ -98,11 +98,11 @@
         </td>
 
         <td>
-          <% current_user.bookmarks.each do |bookmark| %>
+          <% dish.bookmarks.each do |bookmark| %>
 
-          <% if bookmark.dish_id==dish.id %>
+          <% if bookmark.user_id==current_user.id %>
 
-          <%= Bookmark.find(dish.id).venue.name %>
+          <%= bookmark.venue.name %>
           <% @check=1 %>
 
           <% end %>
@@ -115,12 +115,12 @@
             <label for="venue_id" class="control-label">
             </label>
 
-              <%= select_tag(:venue_id, options_from_collection_for_select(Venue.all, :id, :name), :class => "form-control") %>
+             <input type="text" name="venue_id" >
             </div>
 
-            <input type="hidden" name="dish_id" value="<%= dish.id %>"> 
-            <input type="hidden" name="user_id" value="<%= current_user.id %>"> 
-            <input type="hidden" name="notes" value=""> 
+            <input type="text" name="dish_id" value="<%= dish.id %>"> 
+            <input type="text" name="user_id" value="<%= current_user.id %>">
+            <input type="text" name="notes" value="notes"> 
 
 
             <button class="btn btn-success">
