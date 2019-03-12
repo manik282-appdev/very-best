@@ -102,21 +102,21 @@
         <th>Actions</th>
       </tr>
 
-      <% @venues.each do |venue| %>
+      <% current_user.bookmarks.each do |bookmark| %>
       <tr>
-        <td><%= venue.name %></td>
-        <td><%= venue.address %></td>
+        <td><%= bookmark.venue.name %></td>
+        <td><%= bookmark.venue.address %></td>
         <td>
-          <% if venue.neighborhood.present? %>
-            <a href="/neighborhoods/<%= venue.neighborhood.id %>">
-              <%= venue.neighborhood.name %>
+          <% if bookmark.venue.neighborhood.present? %>
+            <a href="/neighborhoods/<%= bookmark.venue.neighborhood.id %>">
+              <%= bookmark.venue.neighborhood.name %>
             </a>
           <% end %>
         </td>
         <td>
-          <a href="/venues/<%= venue.id %>" class="btn btn-primary">Show</a>
-          <a href="/venues/<%= venue.id %>/edit" class="btn btn-warning">Edit</a>
-          <a href="/delete_venue/<%= venue.id %>" class="btn btn-danger" rel="nofollow">Delete</a>
+          <a href="/venues/<%= bookmark.venue.id %>" class="btn btn-primary">Show</a>
+          <a href="/venues/<%= bookmark.venue.id %>/edit" class="btn btn-warning">Edit</a>
+          <a href="/delete_venue/<%= bookmark.venue.id %>" class="btn btn-danger" rel="nofollow">Delete</a>
         </td>
       </tr>
       <% end %>
