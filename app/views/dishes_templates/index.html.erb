@@ -93,56 +93,60 @@
       </tr>
 
       <% @dishes.each do |dish| %>
-      <tr>
-        <td><a href="/dishes/<%= dish.id %>"><%= dish.name %></a>
-        </td>
-
-        <td>
-          <% dish.bookmarks.each do |bookmark| %>
-
-          <% if bookmark.user_id==current_user.id %>
-
-          <%= bookmark.venue.name %>
-          <% @check=1 %>
-
-          <% end %>
-
-          <%end%>
-
-          <% if @check != 1 %>
-          <form action="/create_bookmark" method="post">
-          <div class="form-group">
-            <label for="venue_id" class="control-label">
-            </label>
-
-             <input type="text" name="venue_id" >
+        <tr>
+          <td>
+            <a href="/dishes/<%= dish.id %>"><%= dish.name %></a>
+          </td>
+  
+          <td>
+            
+           <% bookmark = Bookmark.find_by(user_id: current_user.id, dish_id: dish.id) %>
+            
+            
+    
+              <% if bookmark %>
+    
+                <%= bookmark.venue.name %>
+                
+                
+              <% else %>
+              
+              
+            <form action="/create_bookmark" method="post">
+            <div class="form-group">
+              <label for="venue_id" class="control-label"></label>
+  
+               <%= select_tag(:venue_id, options_from_collection_for_select(Venue.all, :id, :name), :class => "form-control") %>
+              
+              <input type="text" name="dish_id" value="<%= dish.id %>"> 
+              <input type="text" name="user_id" value="<%= current_user.id %>">
+              <input type="text" name="notes" value="notes">
             </div>
-
-            <input type="text" name="dish_id" value="<%= dish.id %>"> 
-            <input type="text" name="user_id" value="<%= current_user.id %>">
-            <input type="text" name="notes" value="notes"> 
-
-
+            
             <button class="btn btn-success">
             Bookmark
             </button>
-
-          <% end %>
-
-          <% @check=0 %>
-
-
-        </td>
-
-        <td>
-          <% if dish.cuisine.present? %>
-            <a href="/cuisines/<%= dish.cuisine.id %>">
-              <%= dish.cuisine.name %>
-            </a>
-          <% end %>
-        </td>
-        
-      </tr>
+            </form>
+              
+              
+    
+            <%end%>
+  
+  
+  
+          
+  
+          </td>
+  
+          <td>
+            <% if dish.cuisine.present? %>
+              <a href="/cuisines/<%= dish.cuisine.id %>">
+                <%= dish.cuisine.name %>
+              </a>
+            <% end %>
+          </td>
+          
+        </tr>
       <% end %>
     </table>
     <%= paginate @dishes, theme: 'twitter-bootstrap-4' %>

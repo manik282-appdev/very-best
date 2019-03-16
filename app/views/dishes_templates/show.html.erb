@@ -167,9 +167,11 @@
 
       <% @dish.bookmarks.each do |bookmark| %>
         <li class="list-group-item">
+          <p>
           <a href="/venues/<%= bookmark.venue_id %>">
             <%= bookmark.venue.name %>
           </a>
+          </p>
           <div class="btn-group btn-group-xs float-right">
 
             <a href="/bookmarks/<%= bookmark.venue_id %>/edit" class="btn btn-warning">

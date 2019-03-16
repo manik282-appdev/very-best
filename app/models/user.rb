@@ -1,4 +1,4 @@
-class User < ApplicationRecord
+ class User < ApplicationRecord
   # Direct associations
 
   has_many   :bookmarks,
